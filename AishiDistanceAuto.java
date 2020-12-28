@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-@Autonomous (name = "Distance Sensor Auto")
+@Autonomous(name = "Distance Sensor Auto")
 public class AishiDistanceAuto extends LinearOpMode {
 
     DcMotor leftDriveFront, rightDriveFront, leftDriveBack, rightDriveBack;

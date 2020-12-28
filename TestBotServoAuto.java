@@ -53,12 +53,12 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
-
-@Autonomous(name="TestBot: Servo Autonomous", group="TestBot")
 //@Disabled
-public class TestBotServoAuto extends LinearOpMode {
+//@Autonomous(name="TestBot: Servo Autonomous", group="TestBot")
 
-    /* Declare OpMode members. */
+//public class TestBotServoAuto extends LinearOpMode {
+
+    /* Declare OpMode members.
     HardwareTestBot robot   = new HardwareTestBot();   // Use a Pushbot's hardware
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -70,14 +70,14 @@ public class TestBotServoAuto extends LinearOpMode {
          * Initialize the drive system variables.
          * The init() method of the hardware class does all the work here
          */
-        robot.init(hardwareMap);
+   /*     robot.init(hardwareMap);
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Ready to run");    //
         telemetry.update();
 
         // Wait for the game to start (driver presses PLAY)
-        waitForStart();
+        waitForStart();/*
 
 
        //Drive the Robot forward
@@ -93,11 +93,11 @@ public class TestBotServoAuto extends LinearOpMode {
         robot.leftDriveFront.setPower(0); //motor values can go from -1 to 1 with 0 being stopped
         robot.leftDriveBack.setPower(0);
         robot.rightDriveFront.setPower(0);
-        robot.rightDriveBack.setPower(0);*/
+        robot.rightDriveBack.setPower(0);
 
 
         //Make the servo move up so it is vertical
-        robot.arm.setPosition(0);
+       robot.arm.setPosition(0);
         sleep(1000); //sleep so the servo has enough time to get into position
 
         //Make the servo go back down
@@ -110,3 +110,4 @@ public class TestBotServoAuto extends LinearOpMode {
         sleep(1000);
     }
 }
+*/

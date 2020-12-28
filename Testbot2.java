@@ -31,7 +31,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.util.Range;
 
 /**
  * This OpMode uses the common Pushbot hardware class to define the devices on the robot.
@@ -46,20 +45,20 @@ import com.qualcomm.robotcore.util.Range;
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
-
-@TeleOp(name="Testbot2: Teleop", group="Testbot")
 //@Disabled
+@TeleOp(name="Testbot2: Teleop", group="Testbot")
+
 public class Testbot2 extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareTestBot robot           = new HardwareTestBot();   // Use a Pushbot's hardware
-    double armPosition = robot.ARM_HOME; //servo safe position
-    final double ARM_SPEED = 0.01 ; //sets rate to move servo
-
-    //double          armPosition      = 0;                       // Servo mid position
-    //double          clawPosition      = 0;                       // Servo mid position
-    //final double    CLAW_SPEED      = 0.02 ;                  // sets rate to move servo
-    //final double    CLAW_SPEED      = 0.02 ;                   // sets rate to move servo
+    //double armPosition = robot.ARM_HOME; //servo safe position
+    ///final double ARM_SPEED = 0.1 ; //sets rate to move servo
+    //0.01 slowest...
+    double          armPosition      = 0;                       // Servo mid position
+    double          clawPosition      = 0;                       // Servo mid position
+    final double    ARM_SPEED      = 0.3 ;                  // sets rate to move servo
+    final double    CLAW_SPEED      = 0.3 ;                   // sets rate to move servo
 
     @Override
     public void runOpMode() {
@@ -87,6 +86,8 @@ public class Testbot2 extends LinearOpMode {
             // Output the safe vales to the motor drives.
            // double RightStickY = gamepad1.right_stick_y;
            // double LeftStickY = gamepad1.left_stick_y;
+
+            //gamepad1
             double RightStickY = gamepad1.right_stick_y;
             double LeftStickY = gamepad1.left_stick_y;
             boolean RightBumper = gamepad1.right_bumper;
@@ -98,17 +99,36 @@ public class Testbot2 extends LinearOpMode {
             robot.rightDriveFront.setPower(RightStickY);
             robot.rightDriveBack.setPower(RightStickY);
 
-            //Use the gamepad A & Y to raise and lower the arm
-            if (gamepad1.a) // if the "a" button is pressed on the gamepad, do this next line
+            //gamepad2
+            boolean RightBumper2 = gamepad2.right_bumper;
+            boolean LeftBumper2 = gamepad2.left_bumper;
+            boolean Dpadl2 = gamepad2.dpad_left;
+            boolean Dpadr2 = gamepad2.dpad_right;
+
+
+            //Arm Code
+            if (Dpadl2) // move attachment to left
                 armPosition += ARM_SPEED; //add to the servo position so it moves
 
-            else if (gamepad1.y) //if the "y" button is pressed, then do the next line
+            else if (Dpadr2) //move attachment to right
                 armPosition -= ARM_SPEED; //subtract from the servo position so it moves the other direction
 
             //Move both servos to new position
-            armPosition = Range.clip(armPosition, robot.ARM_MIN_RANGE, robot.ARM_MAX_RANGE); //make sure the position is valid
+          /*  armPosition = Range.clip(armPosition, robot.ARM_MIN_RANGE, robot.ARM_MAX_RANGE); //make sure the position is valid
             robot.arm.setPosition(armPosition); //this code here ACTUALLY sets the position of the servo so it moves
 
+
+            //Claw Code
+           if (LeftBumper2) //open claw
+                clawPosition += CLAW_SPEED; //add to the servo position so it moves
+
+            else if (RightBumper2) //close claw
+                clawPosition -= CLAW_SPEED; //subtract from the servo position so it moves the other direction
+
+            //Move both servos to new position
+            clawPosition = Range.clip(clawPosition, robot.ARM_MIN_RANGE, robot.ARM_MAX_RANGE); //make sure the position is valid
+            robot.claw.setPosition(clawPosition); //this code here ACTUALLY sets the position of the servo so it moves
+*/
             //Forward
             if (RightBumper) {
 
@@ -189,7 +209,7 @@ public class Testbot2 extends LinearOpMode {
                 robot.rightDriveFront.setPower(-0.8);
                 robot.rightDriveBack.setPower(0.0);
             } */
-         //Move FWD and Backward messed up
+         //Turns slightly to left or right
             else {
                 robot.leftDriveFront.setPower(LeftStickY);
                 robot.leftDriveBack.setPower(LeftStickY);

@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@Autonomous (name = "Encoder: Auto")
+@Autonomous(name = "Encoder: Auto")
 public class EncoderAuto extends LinearOpMode {
 
 //Declare OpMode Members.
@@ -35,8 +35,9 @@ static final double MOTOR_TICK_COUNTS = 537.6;
     //how many turns do I need the wheels to go 18 inches
     //the distance you drive with one turn of the wheel is the circumference of the wheel
     double circumference = 3.14*3.75; //in //pi * diameter
-    double rotationsNeeded = 18/circumference; //44 instead of 18? Maybe supposed
-    //to get the diameter when doing the 
+    double rotationsNeeded = 44/circumference; //44 instead of 18? Maybe supposed
+    //to get the diameter when doing the calculations
+    //between number and circumference?
     int encoderDrivingTarget = (int)(rotationsNeeded*537.6); //I don't need to look at the existing
     //encoder counts because I just reset the encoder counts above to 0
     //set the target positions
@@ -57,7 +58,7 @@ static final double MOTOR_TICK_COUNTS = 537.6;
     robot.rightDriveFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     robot.rightDriveBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-    while (robot.leftDriveFront.isBusy() || robot.leftDriveBack.isBusy() || robot.rightDriveFront.isBusy() || robot.rightDriveBack.isBusy()) {
+    while (robot.leftDriveFront.isBusy()|| robot.leftDriveBack.isBusy() || robot.rightDriveFront.isBusy() || robot.rightDriveBack.isBusy()) {
     //essentially do nothing while you wait for the robot to finish driving to the position
         telemetry.addData("Path", "Driving 18 inches");
         telemetry.update();
