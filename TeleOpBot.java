@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.util.Range;
+
 //@Disabled
 @TeleOp(name="Robot: Teleop", group="Testbot")
 public class TeleOpBot extends LinearOpMode {
@@ -11,8 +13,11 @@ public class TeleOpBot extends LinearOpMode {
     //double armPosition = robot.ARM_HOME; //servo safe position
     ///final double ARM_SPEED = 0.1 ; //sets rate to move servo
     //0.01 slowest...
-    double armPosition = 0;                       // Servo mid position
-    final double ARM_SPEED = 0.3;                  // sets rate to move servo
+    double          armPosition      = 0.3;                       // Servo mid position
+    double          clawPosition      = 0;                       // Servo mid position
+    final double    ARM_SPEED      = 0.3 ;                  // sets rate to move servo
+    final double    CLAW_SPEED      = 0.8 ;                   // sets rate to move servo
+    // sets rate to move servo
 
     @Override
     public void runOpMode() {
@@ -44,8 +49,8 @@ public class TeleOpBot extends LinearOpMode {
             boolean Dpadl = gamepad1.dpad_left;
             boolean Dpadr = gamepad1.dpad_right;
 
-            //Forward
-            if (RightBumper) {
+
+            if (gamepad1.right_bumper) {
 
                 robot.leftDriveFront.setPower(0.8);
                 robot.leftDriveBack.setPower(-0.8);
@@ -54,7 +59,7 @@ public class TeleOpBot extends LinearOpMode {
 
             }
             //Backward
-            else if (LeftBumper) {
+            else if (gamepad1.left_bumper) {
                 robot.leftDriveFront.setPower(-0.8);
                 robot.leftDriveBack.setPower(0.8);
                 robot.rightDriveFront.setPower(0.8);
@@ -80,7 +85,7 @@ public class TeleOpBot extends LinearOpMode {
             }
 
             //Turn Right
-            if (Dpadr) {
+            if (gamepad1.dpad_right) {
 
                 robot.leftDriveFront.setPower(0.8);
                 robot.leftDriveBack.setPower(-0.8);
@@ -89,28 +94,42 @@ public class TeleOpBot extends LinearOpMode {
 
             }
             //Turn Left
-            if (Dpadl) {
+            if (gamepad1.dpad_left) {
                 robot.leftDriveFront.setPower(-0.8);
                 robot.leftDriveBack.setPower(0.8);
                 robot.rightDriveFront.setPower(-0.8);
                 robot.rightDriveBack.setPower(0.8);
             }
 
-            //ArmMotor Up
-            if (gamepad1.y);
-            {
+            //Arm Code
+            if (gamepad1.right_stick_button) // move attachment up
+                armPosition += ARM_SPEED; //add to the servo position so it moves
+            else if (gamepad1.left_stick_button) //move attachment down
+                armPosition -= ARM_SPEED; //subtract from the servo position so it moves the other direction
 
-                robot.armMotor.setPower(0.01);
-            }
-
-            //ArmMotor Down
-            if (gamepad1.a);
-            {
-
-                robot.armMotor.setPower(-0.01);
-            }
+            //Move both servos to new position
+            armPosition = Range.clip(armPosition, robot.ARM_MIN_RANGE, robot.ARM_MAX_RANGE); //make sure the position is valid
+            robot.arm.setPosition(armPosition); //this code here ACTUALLY sets the position of the servo so it moves
 
 
+            //Claw Code
+            if (gamepad1.y) //open claw
+                clawPosition += CLAW_SPEED; //add to the servo position so it moves
+
+            else if (gamepad1.a) //close claw
+                clawPosition -= CLAW_SPEED; //subtract from the servo position so it moves the other direction
+
+            //Move both servos to new position
+            clawPosition = Range.clip(clawPosition, robot.ARM_MIN_RANGE, robot.ARM_MAX_RANGE); //make sure the position is valid
+            robot.claw.setPosition(clawPosition); //this code here ACTUALLY sets the position of the servo so it moves
+
+
+
+            //Send telemetry message to signify robot running;
+            telemetry.addData("arm", "%.2f", armPosition);
+            telemetry.addData("claw", "%.2f", clawPosition);
+            // VERY IMPORTANT CODE, shows the values on the phone of the servo
+            telemetry.update();
         }
     }
 }

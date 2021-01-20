@@ -1,4 +1,4 @@
-/* Copyright (c) 2017 FIRST. All rights reserved.
+ /* Copyright (c) 2017 FIRST. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted (subject to the limitations in the disclaimer below) provided that
@@ -31,6 +31,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.util.Range;
 
 /**
  * This OpMode uses the common Pushbot hardware class to define the devices on the robot.
@@ -52,14 +53,17 @@ public class Testbot2 extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareTestBot robot           = new HardwareTestBot();   // Use a Pushbot's hardware
-    //double armPosition = robot.ARM_HOME; //servo safe position
-    ///final double ARM_SPEED = 0.1 ; //sets rate to move servo
-    //0.01 slowest...
-    double          armPosition      = 0;                       // Servo mid position
-    double          clawPosition      = 0;                       // Servo mid position
-    final double    ARM_SPEED      = 0.3 ;                  // sets rate to move servo
-    final double    CLAW_SPEED      = 0.3 ;                   // sets rate to move servo
+    double armPosition = robot.ARM_HOME; //servo safe position
+    final double ARM_SPEED = 0.001 ; //sets rate to move servo
 
+    double clawPosition = robot.CLAW_HOME; //servo safe position
+    final double CLAW_SPEED = 0.001 ; //sets rate to move servo
+    //0.01 slowest...
+/*  double          armPosition      = 0.3;                       // Servo mid position
+    double          clawPosition      = 0;                       // Servo mid position
+    final double    ARM_SPEED      = 0.4 ;                  // sets rate to move servo
+    final double    CLAW_SPEED      = 0.8 ;                   // sets rate to move servo
+*/
     @Override
     public void runOpMode() {
         double left; //doubles are numbers. They will hold the speed/power for the motors.
@@ -74,7 +78,7 @@ public class Testbot2 extends LinearOpMode {
         robot.init(hardwareMap);
 
         // Send telemetry message to signify robot waiting;
-        telemetry.addData("Say", "Hello Driver");    //
+        telemetry.addData("Say", "Hello Driver");
         telemetry.update();
 
         // Wait for the game to start (driver presses PLAY)
@@ -87,7 +91,7 @@ public class Testbot2 extends LinearOpMode {
            // double RightStickY = gamepad1.right_stick_y;
            // double LeftStickY = gamepad1.left_stick_y;
 
-            //gamepad1
+            //Setting Variables for Gamepad1
             double RightStickY = gamepad1.right_stick_y;
             double LeftStickY = gamepad1.left_stick_y;
             boolean RightBumper = gamepad1.right_bumper;
@@ -99,37 +103,58 @@ public class Testbot2 extends LinearOpMode {
             robot.rightDriveFront.setPower(RightStickY);
             robot.rightDriveBack.setPower(RightStickY);
 
-            //gamepad2
-            boolean RightBumper2 = gamepad2.right_bumper;
+            //I DON'T NEED THIS CURRENTLY BECAUSE I AM NOT USING A SECOND GAMEPAD.
+            //Setting Variables for Gamepad2
+      /*     boolean RightBumper2 = gamepad2.right_bumper
             boolean LeftBumper2 = gamepad2.left_bumper;
             boolean Dpadl2 = gamepad2.dpad_left;
-            boolean Dpadr2 = gamepad2.dpad_right;
+            boolean Dpadr2 = gamepad2.dpad_right; */
+
+
+
 
 
             //Arm Code
-            if (Dpadl2) // move attachment to left
+            if (gamepad1.right_stick_button) // move attachment up
                 armPosition += ARM_SPEED; //add to the servo position so it moves
-
-            else if (Dpadr2) //move attachment to right
+            else if (gamepad1.left_stick_button) //move attachment down
                 armPosition -= ARM_SPEED; //subtract from the servo position so it moves the other direction
 
             //Move both servos to new position
-          /*  armPosition = Range.clip(armPosition, robot.ARM_MIN_RANGE, robot.ARM_MAX_RANGE); //make sure the position is valid
+            armPosition = Range.clip(armPosition, robot.ARM_MIN_RANGE, robot.ARM_MAX_RANGE); //make sure the position is valid
             robot.arm.setPosition(armPosition); //this code here ACTUALLY sets the position of the servo so it moves
 
 
             //Claw Code
-           if (LeftBumper2) //open claw
+            if (gamepad1.y) //open claw
                 clawPosition += CLAW_SPEED; //add to the servo position so it moves
 
-            else if (RightBumper2) //close claw
+            else if (gamepad1.a) //close claw
                 clawPosition -= CLAW_SPEED; //subtract from the servo position so it moves the other direction
 
             //Move both servos to new position
-            clawPosition = Range.clip(clawPosition, robot.ARM_MIN_RANGE, robot.ARM_MAX_RANGE); //make sure the position is valid
+            clawPosition = Range.clip(clawPosition, robot.CLAW_MIN_RANGE, robot.CLAW_MAX_RANGE); //make sure the position is valid
             robot.claw.setPosition(clawPosition); //this code here ACTUALLY sets the position of the servo so it moves
-*/
-            //Forward
+
+        //shooter reverse
+            if (gamepad1.dpad_down) {
+
+                robot.shooter.setPower(-0.6);
+                robot.shooter2.setPower(-0.6);
+                robot.shooter3.setPower(-0.6);
+            }
+
+         //shooter stop
+
+                if (gamepad1.dpad_up) {
+
+                    robot.shooter.setPower(0.0);
+                    robot.shooter2.setPower(0.0);
+                    robot.shooter3.setPower(0.0);
+                }
+
+
+                //Forward
             if (RightBumper) {
 
                 robot.leftDriveFront.setPower(0.8);
@@ -174,14 +199,15 @@ public class Testbot2 extends LinearOpMode {
 
             }
             //Turn Left
-            else if (Dpadl) {
+            if (Dpadl) {
                 robot.leftDriveFront.setPower(-0.8);
                 robot.leftDriveBack.setPower(0.8);
                 robot.rightDriveFront.setPower(-0.8);
                 robot.rightDriveBack.setPower(0.8);
             }
 
-         /*   //Up Right Diagonal
+         /* //When I start using a second gamepad, I will add the diagonals back in.
+         //Up Right Diagonal
             if (gamepad1.a) {
                 robot.leftDriveFront.setPower(0.8);
                 robot.leftDriveBack.setPower(0.0);
@@ -210,7 +236,7 @@ public class Testbot2 extends LinearOpMode {
                 robot.rightDriveBack.setPower(0.0);
             } */
          //Turns slightly to left or right
-            else {
+          else {
                 robot.leftDriveFront.setPower(LeftStickY);
                 robot.leftDriveBack.setPower(LeftStickY);
                 robot.rightDriveFront.setPower(RightStickY);
@@ -218,7 +244,9 @@ public class Testbot2 extends LinearOpMode {
 
             }
            //Send telemetry message to signify robot running;
-            telemetry.addData("arm", "%.2f", armPosition); // VERY IMPORTANT CODE, shows the values on the phone of the servo
+            telemetry.addData("arm", "%.2f", armPosition);
+            telemetry.addData("claw", "%.2f", clawPosition);
+        // VERY IMPORTANT CODE, shows the values on the phone of the servo
             //telemetry.addData("left", "%.2f", left);
             //telemetry.addData("right", "%.2f", right);
             telemetry.update();
