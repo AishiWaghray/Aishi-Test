@@ -139,8 +139,8 @@ public class Testbot2 extends LinearOpMode {
         //shooter reverse
             if (gamepad1.dpad_down) {
 
-                robot.shooter.setPower(-0.6);
-                robot.shooter2.setPower(-0.6);
+                robot.shooter.setPower(-1.0);
+                robot.shooter2.setPower(-0.8);
                 robot.shooter3.setPower(-0.6);
             }
 
