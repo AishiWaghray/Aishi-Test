@@ -58,6 +58,9 @@ public class Testbot2 extends LinearOpMode {
 
     double clawPosition = robot.CLAW_HOME; //servo safe position
     final double CLAW_SPEED = 0.001 ; //sets rate to move servo
+
+    double blockerPosition = robot.BLOCKER_HOME; //servo safe position
+    final double BLOCKER_SPEED = 0.001 ; //sets rate to move servo
     //0.01 slowest...
 /*  double          armPosition      = 0.3;                       // Servo mid position
     double          clawPosition      = 0;                       // Servo mid position
@@ -136,10 +139,21 @@ public class Testbot2 extends LinearOpMode {
             clawPosition = Range.clip(clawPosition, robot.CLAW_MIN_RANGE, robot.CLAW_MAX_RANGE); //make sure the position is valid
             robot.claw.setPosition(clawPosition); //this code here ACTUALLY sets the position of the servo so it moves
 
-        //shooter reverse
+            //Blocker Code //Reminder: 1st shooter is going the wrong direction. FIX
+        /*    if (gamepad1.right_trigger) //turn blocker
+                blockerPosition += BLOCKER_SPEED; //add to the servo position so it moves
+
+            else if (gamepad1.left_trigger) //turn blocker the other way
+                blockerPosition -= BLOCKER_SPEED; //subtract from the servo position so it moves the other direction
+*/
+            //Move both servos to new position
+            blockerPosition = Range.clip(blockerPosition, robot.BLOCKER_MIN_RANGE, robot.BLOCKER_MAX_RANGE); //make sure the position is valid
+            robot.blocker.setPosition(blockerPosition); //this code here ACTUALLY sets the position of the servo so it moves
+
+            //shooter reverse
             if (gamepad1.dpad_down) {
 
-                robot.shooter.setPower(-1.0);
+                robot.shooter.setPower(1.0);//i think i fixed the wrong direction thing....may need to fix again
                 robot.shooter2.setPower(-0.8);
                 robot.shooter3.setPower(-0.6);
             }
@@ -246,6 +260,7 @@ public class Testbot2 extends LinearOpMode {
            //Send telemetry message to signify robot running;
             telemetry.addData("arm", "%.2f", armPosition);
             telemetry.addData("claw", "%.2f", clawPosition);
+            telemetry.addData("blocker", "%.2f", blockerPosition);
         // VERY IMPORTANT CODE, shows the values on the phone of the servo
             //telemetry.addData("left", "%.2f", left);
             //telemetry.addData("right", "%.2f", right);

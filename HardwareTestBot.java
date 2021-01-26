@@ -61,6 +61,7 @@ public class HardwareTestBot
     public DcMotor shooter3  = null;
     public Servo arm = null;
     public Servo claw = null;
+    public Servo blocker = null;
     //public DcMotor  leftArm     = null;
     //public Servo    leftClaw    = null;
     //public Servo    rightClaw   = null;
@@ -73,9 +74,14 @@ public class HardwareTestBot
     public final static double CLAW_MIN_RANGE = 0.1; //smallest number value allowed for servo position
     public final static double CLAW_MAX_RANGE = 5; // largest number value allowed for servo position
 
+    public final static double BLOCKER_HOME = 0.0; //starting position for servo arm
+    public final static double BLOCKER_MIN_RANGE = 0.0; //smallest number value allowed for servo position
+    public final static double BLOCKER_MAX_RANGE = 1; // largest number value allowed for servo position
+
+
     /* public static final double MID_SERVO       =  0.5 ;
     public static final double ARM_UP_POWER    =  0.45 ;
-    public static final double ARM_DOWN_POWER  = -0.45 ;b
+    public static final double ARM_DOWN_POWER  = -0.45 ;
 
 **/
     /* local OpMode members. */
@@ -149,6 +155,11 @@ public class HardwareTestBot
         //arm init
         arm = hwMap.servo.get("arm"); //set equal to name of the servo motor in the phone
         arm.setPosition(ARM_HOME); //setPosition actually sets the servo's position and moves it
+        //ARM_HOME sets at 0. ARM_MIN_RANGE sets at 0. ARM_MAX RANGE SETS AT 1.0
+
+        //BLOCKER INIT
+        blocker = hwMap.servo.get("arm"); //set equal to name of the servo motor in the phone
+        blocker.setPosition(ARM_HOME); //setPosition actually sets the servo's position and moves it
         //ARM_HOME sets at 0. ARM_MIN_RANGE sets at 0. ARM_MAX RANGE SETS AT 1.0
 
         //leftClaw  = hwMap.get(Servo.class, "left_hand");
