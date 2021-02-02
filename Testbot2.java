@@ -106,16 +106,6 @@ public class Testbot2 extends LinearOpMode {
             robot.rightDriveFront.setPower(RightStickY);
             robot.rightDriveBack.setPower(RightStickY);
 
-            //I DON'T NEED THIS CURRENTLY BECAUSE I AM NOT USING A SECOND GAMEPAD.
-            //Setting Variables for Gamepad2
-      /*     boolean RightBumper2 = gamepad2.right_bumper
-            boolean LeftBumper2 = gamepad2.left_bumper;
-            boolean Dpadl2 = gamepad2.dpad_left;
-            boolean Dpadr2 = gamepad2.dpad_right; */
-
-
-
-
 
             //Arm Code
             if (gamepad1.right_stick_button) // move attachment up
@@ -139,26 +129,29 @@ public class Testbot2 extends LinearOpMode {
             clawPosition = Range.clip(clawPosition, robot.CLAW_MIN_RANGE, robot.CLAW_MAX_RANGE); //make sure the position is valid
             robot.claw.setPosition(clawPosition); //this code here ACTUALLY sets the position of the servo so it moves
 
-            //Blocker Code //Reminder: 1st shooter is going the wrong direction. FIX
-        /*    if (gamepad1.right_trigger) //turn blocker
+
+           //Blocker Code
+            if (gamepad2.x) //turn blocker
+
                 blockerPosition += BLOCKER_SPEED; //add to the servo position so it moves
 
-            else if (gamepad1.left_trigger) //turn blocker the other way
+            else if (gamepad2.b) //turn blocker the other way
+
                 blockerPosition -= BLOCKER_SPEED; //subtract from the servo position so it moves the other direction
-*/
-            //Move both servos to new position
+
+        //Move both servos to new position
             blockerPosition = Range.clip(blockerPosition, robot.BLOCKER_MIN_RANGE, robot.BLOCKER_MAX_RANGE); //make sure the position is valid
             robot.blocker.setPosition(blockerPosition); //this code here ACTUALLY sets the position of the servo so it moves
 
-            //shooter reverse
+            //Shooter start (wheels are moving reverse).
             if (gamepad1.dpad_down) {
 
-                robot.shooter.setPower(1.0);//i think i fixed the wrong direction thing....may need to fix again
-                robot.shooter2.setPower(-0.8);
-                robot.shooter3.setPower(-0.6);
+                robot.shooter.setPower(75); //value has to be positive for it to go the correct direction
+                robot.shooter2.setPower(-75);
+                robot.shooter3.setPower(-75);
             }
 
-         //shooter stop
+            //Shooter stop
 
                 if (gamepad1.dpad_up) {
 
@@ -167,6 +160,17 @@ public class Testbot2 extends LinearOpMode {
                     robot.shooter3.setPower(0.0);
                 }
 
+                //Intake start (wheels are moving reverse). All the wheels are connected to one motor.
+            if (gamepad2.y) {
+
+                robot.intake.setPower(0.7);
+            }
+
+            //Intake stop
+            if (gamepad2.a) {
+
+                robot.intake.setPower(0);
+            }
 
                 //Forward
             if (RightBumper) {
@@ -220,7 +224,7 @@ public class Testbot2 extends LinearOpMode {
                 robot.rightDriveBack.setPower(0.8);
             }
 
-         /* //When I start using a second gamepad, I will add the diagonals back in.
+         /* //Not in need of it right now. It is difficult to control two gamepads at once.
          //Up Right Diagonal
             if (gamepad1.a) {
                 robot.leftDriveFront.setPower(0.8);
@@ -250,14 +254,14 @@ public class Testbot2 extends LinearOpMode {
                 robot.rightDriveBack.setPower(0.0);
             } */
          //Turns slightly to left or right
-          else {
+       else {
                 robot.leftDriveFront.setPower(LeftStickY);
                 robot.leftDriveBack.setPower(LeftStickY);
                 robot.rightDriveFront.setPower(RightStickY);
                 robot.rightDriveBack.setPower(RightStickY);
 
             }
-           //Send telemetry message to signify robot running;
+          //Send telemetry message to signify robot running;
             telemetry.addData("arm", "%.2f", armPosition);
             telemetry.addData("claw", "%.2f", clawPosition);
             telemetry.addData("blocker", "%.2f", blockerPosition);

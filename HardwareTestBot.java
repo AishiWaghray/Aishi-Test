@@ -59,6 +59,7 @@ public class HardwareTestBot
     public DcMotor shooter  = null;
     public DcMotor shooter2  = null;
     public DcMotor shooter3  = null;
+    public DcMotor intake  = null;
     public Servo arm = null;
     public Servo claw = null;
     public Servo blocker = null;
@@ -108,29 +109,35 @@ public class HardwareTestBot
         leftDriveFront.setDirection(DcMotor.Direction.FORWARD); // Set to FORWARD if using AndyMark motors
         leftDriveBack.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE if using AndyMark motors
 
-       //Shooter Motor
+       //Shooter Motors
         shooter = hwMap.get(DcMotor.class, "shooter");
-        //shooter.setDirection(DcMotor.Direction.FORWARD); // Set to FORWARD if using AndyMark motors
-        shooter.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        shooter.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE if using AndyMark motors
 
         shooter2 = hwMap.get(DcMotor.class, "shooter2");
-        //shooter.setDirection(DcMotor.Direction.FORWARD); // Set to FORWARD if using AndyMark motors
-        shooter2.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        shooter2.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE if using AndyMark motors
 
         shooter3 = hwMap.get(DcMotor.class, "shooter3");
-        //shooter.setDirection(DcMotor.Direction.FORWARD); // Set to FORWARD if using AndyMark motors
-        shooter3.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        shooter3.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE if using AndyMark motors
+
+        //Intake Motors
+        intake = hwMap.get(DcMotor.class, "intake");
+        intake.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE if using AndyMark motors
 
 
         // Set all motors to zero power
+        //wheels
         leftDriveFront.setPower(0);
         rightDriveFront.setPower(0);
         leftDriveBack.setPower(0);
         rightDriveBack.setPower(0);
 
-        //shooter
+        //shooters
         shooter.setPower(0);
         shooter2.setPower(0);
+        shooter3.setPower(0);
+
+        //intake
+        intake.setPower(0);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
@@ -144,6 +151,8 @@ public class HardwareTestBot
         shooter2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         shooter3.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+        //intake
+        intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Define and initialize ALL installed servos
 
@@ -159,7 +168,7 @@ public class HardwareTestBot
 
         //BLOCKER INIT
         blocker = hwMap.servo.get("arm"); //set equal to name of the servo motor in the phone
-        blocker.setPosition(ARM_HOME); //setPosition actually sets the servo's position and moves it
+        blocker.setPosition(BLOCKER_HOME); //setPosition actually sets the servo's position and moves it
         //ARM_HOME sets at 0. ARM_MIN_RANGE sets at 0. ARM_MAX RANGE SETS AT 1.0
 
         //leftClaw  = hwMap.get(Servo.class, "left_hand");
