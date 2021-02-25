@@ -80,14 +80,14 @@ public class AutoPath extends LinearOpMode {
         waitForStart();
 
 
-       //Move forward
+        //Move forward
         robot.leftDriveFront.setPower(0.8);
         robot.leftDriveBack.setPower(-0.8);
         robot.rightDriveFront.setPower(-0.8);
         robot.rightDriveBack.setPower(0.8);
         sleep(2250);
 
-       //Strafe Left
+        //Strafe Left
         robot.leftDriveFront.setPower(0.8);
         robot.leftDriveBack.setPower(0.8);
         robot.rightDriveFront.setPower(0.8);

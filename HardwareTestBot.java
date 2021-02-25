@@ -38,15 +38,15 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 //*
 //This is NOT an opmode.
 //This is a copy and now edited version of Hardware Push Bot
- //This class can be used to define all the specific hardware for a single robot.
+//This class can be used to define all the specific hardware for a single robot.
 //In this case that robot is a Pushbot.
 //See PushbotTeleopTank_Iterative and others classes starting with "Pushbot" for usage examples.
- //This hardware class assumes the following device names have been configured on the robot:
+//This hardware class assumes the following device names have been configured on the robot:
 //Note:  All names are lower case and some have single spaces between words.
 //Motor channel:  Left  drive motor:        "left_drive"
 // Motor channel:  Right drive motor:        "right_drive"
 //Motor channel:  Manipulator drive motor:  "left_arm"
- // Servo channel:  Servo to open left claw:  "left_hand"
+// Servo channel:  Servo to open left claw:  "left_hand"
 //Servo channel:  Servo to open right claw: "right_hand"
 //@Disabled
 public class HardwareTestBot
@@ -56,13 +56,8 @@ public class HardwareTestBot
     public DcMotor rightDriveFront  = null;
     public DcMotor leftDriveBack   = null;
     public DcMotor rightDriveBack  = null;
-    public DcMotor shooter  = null;
-    public DcMotor shooter2  = null;
-    public DcMotor shooter3  = null;
-    public DcMotor intake  = null;
     public Servo arm = null;
     public Servo claw = null;
-    public Servo blocker = null;
     //public DcMotor  leftArm     = null;
     //public Servo    leftClaw    = null;
     //public Servo    rightClaw   = null;
@@ -74,16 +69,9 @@ public class HardwareTestBot
     public final static double CLAW_HOME = 0.8; //starting position for servo arm
     public final static double CLAW_MIN_RANGE = 0.1; //smallest number value allowed for servo position
     public final static double CLAW_MAX_RANGE = 5; // largest number value allowed for servo position
-
-    public final static double BLOCKER_HOME = 0.0; //starting position for servo arm
-    public final static double BLOCKER_MIN_RANGE = 0.0; //smallest number value allowed for servo position
-    public final static double BLOCKER_MAX_RANGE = 1; // largest number value allowed for servo position
-
-
     /* public static final double MID_SERVO       =  0.5 ;
     public static final double ARM_UP_POWER    =  0.45 ;
     public static final double ARM_DOWN_POWER  = -0.45 ;
-
 **/
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
@@ -91,7 +79,7 @@ public class HardwareTestBot
 
 
 
-        /* Constructor */
+    /* Constructor */
     public HardwareTestBot(){
 
     }
@@ -109,21 +97,6 @@ public class HardwareTestBot
         leftDriveFront.setDirection(DcMotor.Direction.FORWARD); // Set to FORWARD if using AndyMark motors
         leftDriveBack.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE if using AndyMark motors
 
-       //Shooter Motors
-        shooter = hwMap.get(DcMotor.class, "shooter");
-        shooter.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE if using AndyMark motors
-
-        shooter2 = hwMap.get(DcMotor.class, "shooter2");
-        shooter2.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE if using AndyMark motors
-
-        shooter3 = hwMap.get(DcMotor.class, "shooter3");
-        shooter3.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE if using AndyMark motors
-
-        //Intake Motors
-        intake = hwMap.get(DcMotor.class, "intake");
-        intake.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE if using AndyMark motors
-
-
         // Set all motors to zero power
         //wheels
         leftDriveFront.setPower(0);
@@ -131,28 +104,12 @@ public class HardwareTestBot
         leftDriveBack.setPower(0);
         rightDriveBack.setPower(0);
 
-        //shooters
-        shooter.setPower(0);
-        shooter2.setPower(0);
-        shooter3.setPower(0);
-
-        //intake
-        intake.setPower(0);
-
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
         leftDriveFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightDriveFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftDriveBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightDriveBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        //shooter
-        shooter.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        shooter2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        shooter3.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        //intake
-        intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Define and initialize ALL installed servos
 
@@ -166,15 +123,10 @@ public class HardwareTestBot
         arm.setPosition(ARM_HOME); //setPosition actually sets the servo's position and moves it
         //ARM_HOME sets at 0. ARM_MIN_RANGE sets at 0. ARM_MAX RANGE SETS AT 1.0
 
-        //BLOCKER INIT
-        blocker = hwMap.servo.get("arm"); //set equal to name of the servo motor in the phone
-        blocker.setPosition(BLOCKER_HOME); //setPosition actually sets the servo's position and moves it
-        //ARM_HOME sets at 0. ARM_MIN_RANGE sets at 0. ARM_MAX RANGE SETS AT 1.0
 
         //leftClaw  = hwMap.get(Servo.class, "left_hand");
         //rightClaw = hwMap.get(Servo.class, "right_hand");
         //leftClaw.setPosition(MID_SERVO);
         //rightClaw.setPosition(MID_SERVO);
     }
- }
-
+}

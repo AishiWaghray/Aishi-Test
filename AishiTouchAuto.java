@@ -61,10 +61,8 @@ public class AishiTouchAuto extends LinearOpMode {
 
 
   /*      while(opModeIsActive()) {
-
             if (touch.getState()); {
                 power *= -0.35;
-
             }
             //error area begins
             public boolean isTouched(DigitalChannel touch){
@@ -72,20 +70,15 @@ public class AishiTouchAuto extends LinearOpMode {
                     return true;
                 } else {
                     return false;
-
                 }
             }
             public double modPower() {
-
                 double modPower = power*0.85;
                 return modPower;
-
                     //if desired, can make into one line:
                     // return power * 0.85
             //error area ends
         }
-
     }
-
 }
 */

@@ -75,4 +75,3 @@ public class AishiDistanceAuto extends LinearOpMode {
     }
 
 }
-

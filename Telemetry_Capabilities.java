@@ -30,8 +30,8 @@ public class Telemetry_Capabilities extends LinearOpMode {
         //the variable argument version of the addData function
         //allows me to put more values in one single line
         //allows me to display higher density in the Telemetry Dashboard
-         gamepad1LeftStickItem = telemetry.addData("value Lx, Ly",
-                 "| % 3f | % 3f |", gamepad1.left_stick_x, gamepad1.left_stick_y);
+        gamepad1LeftStickItem = telemetry.addData("value Lx, Ly",
+                "| % 3f | % 3f |", gamepad1.left_stick_x, gamepad1.left_stick_y);
         gamepad1RightStickItem = telemetry.addData("value Rx, Ry",
                 "| % 3f | % 3f |", gamepad1.right_stick_x, gamepad1.right_stick_y);
 

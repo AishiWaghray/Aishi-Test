@@ -61,50 +61,35 @@ import com.qualcomm.robotcore.util.ElapsedTime;
     /* Declare OpMode members.
     HardwareTestBot robot   = new HardwareTestBot();   // Use a Pushbot's hardware
     private ElapsedTime runtime = new ElapsedTime();
-
-
     @Override
     public void runOpMode() {
-
         /*
          * Initialize the drive system variables.
          * The init() method of the hardware class does all the work here
          */
    /*     robot.init(hardwareMap);
-
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Ready to run");    //
         telemetry.update();
-
         // Wait for the game to start (driver presses PLAY)
         waitForStart();/*
-
-
        //Drive the Robot forward
       /*  robot.leftDriveFront.setPower(0.8); //motor values can go from -1 to 1 with 0 being stopped
         robot.leftDriveBack.setPower(-0.8);
         robot.rightDriveFront.setPower(-0.8);
         robot.rightDriveBack.setPower(0.8);
         sleep(1100); //stay here in the code for 1 second, don't move on to the next instructions
-
-
-
         //Park, stop the motors
         robot.leftDriveFront.setPower(0); //motor values can go from -1 to 1 with 0 being stopped
         robot.leftDriveBack.setPower(0);
         robot.rightDriveFront.setPower(0);
         robot.rightDriveBack.setPower(0);
-
-
         //Make the servo move up so it is vertical
        robot.arm.setPosition(0);
         sleep(1000); //sleep so the servo has enough time to get into position
-
         //Make the servo go back down
         robot.arm.setPosition(0.5);
         sleep(1000);
-
-
         telemetry.addData("Path", "Complete");
         telemetry.update();
         sleep(1000);

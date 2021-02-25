@@ -154,7 +154,7 @@ public class TestbotTeleopPOV_Linear extends LinearOpMode {
                 robot.rightDriveFront.setPower(-0.8);
                 robot.rightDriveBack.setPower(0.0);
             }
-         //Move FWD and Backward
+            //Move FWD and Backward
             else {
                 robot.leftDriveFront.setPower(LeftStickY);
                 robot.leftDriveBack.setPower(LeftStickY);
@@ -162,11 +162,11 @@ public class TestbotTeleopPOV_Linear extends LinearOpMode {
                 robot.rightDriveBack.setPower(RightStickY);
 
             }
-             telemetry.addData("left", "%.2f", left);
-                telemetry.addData("right", "%.2f", right);
-                telemetry.update();
+            telemetry.addData("left", "%.2f", left);
+            telemetry.addData("right", "%.2f", right);
+            telemetry.update();
 
-                // Pace this loop so jaw action is reasonable speed.
-            }        sleep(50);
+            // Pace this loop so jaw action is reasonable speed.
+        }        sleep(50);
     }
 }
