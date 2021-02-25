@@ -126,7 +126,19 @@
              clawPosition = Range.clip(clawPosition, robot.CLAW_MIN_RANGE, robot.CLAW_MAX_RANGE); //make sure the position is valid
              robot.claw.setPosition(clawPosition); //this code here ACTUALLY sets the position of the servo so it moves
 
-             //Forward
+             //Shooter Move
+             if (gamepad1.dpad_up) {
+
+                 robot.ls.setPower(1);
+                 robot.rs.setPower(1);
+             }
+             //Shooter Stop
+             if (gamepad1.dpad_down) {
+
+                 robot.ls.setPower(0);
+                 robot.rs.setPower(0);
+             }
+                 //Forward
              if (RightBumper) {
 
                  robot.leftDriveFront.setPower(0.8);

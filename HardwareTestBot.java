@@ -56,6 +56,8 @@ public class HardwareTestBot
     public DcMotor rightDriveFront  = null;
     public DcMotor leftDriveBack   = null;
     public DcMotor rightDriveBack  = null;
+    public DcMotor ls  = null;
+    public DcMotor rs  = null;
     public Servo arm = null;
     public Servo claw = null;
     //public DcMotor  leftArm     = null;
@@ -97,6 +99,12 @@ public class HardwareTestBot
         leftDriveFront.setDirection(DcMotor.Direction.FORWARD); // Set to FORWARD if using AndyMark motors
         leftDriveBack.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE if using AndyMark motors
 
+        //Shooters
+        ls = hwMap.get(DcMotor.class, "ls");
+        rs = hwMap.get(DcMotor.class, "rs");
+        ls.setDirection(DcMotor.Direction.REVERSE); // Set to FORWARD if using AndyMark motors
+        rs.setDirection(DcMotor.Direction.FORWARD); // Set to FORWARD if using AndyMark motors
+
         // Set all motors to zero power
         //wheels
         leftDriveFront.setPower(0);
@@ -104,12 +112,20 @@ public class HardwareTestBot
         leftDriveBack.setPower(0);
         rightDriveBack.setPower(0);
 
+        //Shooters
+        ls.setPower(0);
+        rs.setPower(0);
+
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
         leftDriveFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightDriveFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftDriveBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightDriveBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        //Shooters
+        ls.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rs.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Define and initialize ALL installed servos
 
