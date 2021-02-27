@@ -59,6 +59,9 @@
      double clawPosition = robot.CLAW_HOME; //servo safe position
      final double CLAW_SPEED = 0.001 ; //sets rate to move servo
 
+     double blockerPosition = robot.BLOCKER_HOME; //servo safe position
+     final double BLOCKER_SPEED = 0.001 ; //sets rate to move servo
+     //0.01 slowest...
 /*  double          armPosition      = 0.3;                       // Servo mid position
     double          clawPosition      = 0;                       // Servo mid position
     final double    ARM_SPEED      = 0.4 ;                  // sets rate to move servo
@@ -126,19 +129,50 @@
              clawPosition = Range.clip(clawPosition, robot.CLAW_MIN_RANGE, robot.CLAW_MAX_RANGE); //make sure the position is valid
              robot.claw.setPosition(clawPosition); //this code here ACTUALLY sets the position of the servo so it moves
 
-             //Shooter Move
-             if (gamepad1.dpad_up) {
 
-                 robot.ls.setPower(1);
-                 robot.rs.setPower(1);
-             }
-             //Shooter Stop
+             //Blocker Code
+             if (gamepad2.x) //turn blocker
+
+                 blockerPosition += BLOCKER_SPEED; //add to the servo position so it moves
+
+             else if (gamepad2.b) //turn blocker the other way
+
+                 blockerPosition -= BLOCKER_SPEED; //subtract from the servo position so it moves the other direction
+
+             //Move both servos to new position
+             blockerPosition = Range.clip(blockerPosition, robot.BLOCKER_MIN_RANGE, robot.BLOCKER_MAX_RANGE); //make sure the position is valid
+             robot.blocker.setPosition(blockerPosition); //this code here ACTUALLY sets the position of the servo so it moves
+
+             //Shooter start (wheels are moving reverse).
              if (gamepad1.dpad_down) {
 
-                 robot.ls.setPower(0);
-                 robot.rs.setPower(0);
+                 robot.shooter.setPower(75); //value has to be positive for it to go the correct direction
+                 robot.shooter2.setPower(-75);
+                 robot.shooter3.setPower(-75);
              }
-                 //Forward
+
+             //Shooter stop
+
+             if (gamepad1.dpad_up) {
+
+                 robot.shooter.setPower(0.0);
+                 robot.shooter2.setPower(0.0);
+                 robot.shooter3.setPower(0.0);
+             }
+
+             //Intake start (wheels are moving reverse). All the wheels are connected to one motor.
+             if (gamepad2.y) {
+
+                 robot.intake.setPower(0.7);
+             }
+
+             //Intake stop
+             if (gamepad2.a) {
+
+                 robot.intake.setPower(0);
+             }
+
+             //Forward
              if (RightBumper) {
 
                  robot.leftDriveFront.setPower(0.8);
@@ -230,6 +264,7 @@
              //Send telemetry message to signify robot running;
              telemetry.addData("arm", "%.2f", armPosition);
              telemetry.addData("claw", "%.2f", clawPosition);
+             telemetry.addData("blocker", "%.2f", blockerPosition);
              // VERY IMPORTANT CODE, shows the values on the phone of the servo
              //telemetry.addData("left", "%.2f", left);
              //telemetry.addData("right", "%.2f", right);

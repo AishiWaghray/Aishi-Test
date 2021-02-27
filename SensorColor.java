@@ -26,6 +26,7 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 /*
 package org.firstinspires.ftc.teamcode;
 
@@ -69,9 +70,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 @TeleOp(name = "Sensor: Color", group = "Sensor")
 //@Disabled
 public class SensorColor extends LinearOpMode {
-
+*/
     /** The colorSensor field will contain a reference to our color sensor hardware object */
-/*    NormalizedColorSensor colorSensor;
+ //   NormalizedColorSensor colorSensor;
 
     /** The relativeLayout field is used to aid in providing interesting visual feedback
      * in this sample application; you probably *don't* need this when you use a color sensor on your
@@ -88,7 +89,7 @@ public class SensorColor extends LinearOpMode {
      * block around the main, core logic, and an easy way to make that all clear was to separate
      * the former from the latter in separate methods.
      */
-/*    @Override
+  /*  @Override
     public void runOpMode() {
 
         // Get a reference to the RelativeLayout so we can later change the background
@@ -192,7 +193,7 @@ public class SensorColor extends LinearOpMode {
              * for an explanation of HSV color. */
 
             // Update the hsvValues array by passing it to Color.colorToHSV()
-  /*          Color.colorToHSV(colors.toColor(), hsvValues);
+   /*         Color.colorToHSV(colors.toColor(), hsvValues);
 
             telemetry.addLine()
                     .addData("Red", "%.3f", colors.red)
@@ -207,7 +208,7 @@ public class SensorColor extends LinearOpMode {
             /* If this color sensor also has a distance sensor, display the measured distance.
              * Note that the reported distance is only useful at very close range, and is impacted by
              * ambient light and surface reflectivity. */
-   /*         if (colorSensor instanceof DistanceSensor) {
+       /*     if (colorSensor instanceof DistanceSensor) {
                 telemetry.addData("Distance (cm)", "%.3f", ((DistanceSensor) colorSensor).getDistance(DistanceUnit.CM));
             }
 
@@ -222,5 +223,4 @@ public class SensorColor extends LinearOpMode {
         }
     }
 }
-
-    */
+*/
