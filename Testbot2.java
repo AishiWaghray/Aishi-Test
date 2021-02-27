@@ -1,3 +1,4 @@
+
  /* Copyright (c) 2017 FIRST. All rights reserved.
   *
   * Redistribution and use in source and binary forms, with or without modification,
@@ -130,8 +131,8 @@
              //Shooter start (wheels are moving reverse).
              if (gamepad1.dpad_down) {
 
-                 robot.ls.setPower(-0.2); //value has to be positive for it to go the correct direction
-                 robot.rs.setPower(-0.2);
+                 robot.ls.setPower(0.4); //value has to be positive for it to go the correct direction
+                 robot.rs.setPower(0.4);
              }
 
              //Shooter stop
