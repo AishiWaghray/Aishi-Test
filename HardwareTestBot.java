@@ -56,13 +56,10 @@ public class HardwareTestBot
     public DcMotor rightDriveFront  = null;
     public DcMotor leftDriveBack   = null;
     public DcMotor rightDriveBack  = null;
-    public DcMotor shooter  = null;
-    public DcMotor shooter2  = null;
-    public DcMotor shooter3  = null;
-    public DcMotor intake  = null;
+    public DcMotor ls  = null;
+    public DcMotor rs = null;
     public Servo arm = null;
     public Servo claw = null;
-    public Servo blocker = null;
     //public DcMotor  leftArm     = null;
     //public Servo    leftClaw    = null;
     //public Servo    rightClaw   = null;
@@ -74,10 +71,6 @@ public class HardwareTestBot
     public final static double CLAW_HOME = 0.8; //starting position for servo arm
     public final static double CLAW_MIN_RANGE = 0.1; //smallest number value allowed for servo position
     public final static double CLAW_MAX_RANGE = 5; // largest number value allowed for servo position
-
-    public final static double BLOCKER_HOME = 0.0; //starting position for servo arm
-    public final static double BLOCKER_MIN_RANGE = 0.0; //smallest number value allowed for servo position
-    public final static double BLOCKER_MAX_RANGE = 1; // largest number value allowed for servo position
 
 
     /* public static final double MID_SERVO       =  0.5 ;
@@ -109,18 +102,12 @@ public class HardwareTestBot
         leftDriveBack.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE if using AndyMark motors
 
         //Shooter Motors
-        shooter = hwMap.get(DcMotor.class, "shooter");
-        shooter.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE if using AndyMark motors
+        ls = hwMap.get(DcMotor.class, "ls");
+        ls.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE if using AndyMark motors
 
-        shooter2 = hwMap.get(DcMotor.class, "shooter2");
-        shooter2.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE if using AndyMark motors
+        rs = hwMap.get(DcMotor.class, "rs");
+        rs.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE if using AndyMark motors
 
-        shooter3 = hwMap.get(DcMotor.class, "shooter3");
-        shooter3.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE if using AndyMark motors
-
-        //Intake Motors
-        intake = hwMap.get(DcMotor.class, "intake");
-        intake.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE if using AndyMark motors
 
 
         // Set all motors to zero power
@@ -131,12 +118,8 @@ public class HardwareTestBot
         rightDriveBack.setPower(0);
 
         //shooters
-        shooter.setPower(0);
-        shooter2.setPower(0);
-        shooter3.setPower(0);
-
-        //intake
-        intake.setPower(0);
+        ls.setPower(0);
+        rs.setPower(0);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
@@ -146,12 +129,8 @@ public class HardwareTestBot
         rightDriveBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //shooter
-        shooter.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        shooter2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        shooter3.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        //intake
-        intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        ls.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rs.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Define and initialize ALL installed servos
 
@@ -163,11 +142,6 @@ public class HardwareTestBot
         //arm init
         arm = hwMap.servo.get("arm"); //set equal to name of the servo motor in the phone
         arm.setPosition(ARM_HOME); //setPosition actually sets the servo's position and moves it
-        //ARM_HOME sets at 0. ARM_MIN_RANGE sets at 0. ARM_MAX RANGE SETS AT 1.0
-
-        //BLOCKER INIT
-        blocker = hwMap.servo.get("arm"); //set equal to name of the servo motor in the phone
-        blocker.setPosition(BLOCKER_HOME); //setPosition actually sets the servo's position and moves it
         //ARM_HOME sets at 0. ARM_MIN_RANGE sets at 0. ARM_MAX RANGE SETS AT 1.0
 
         //leftClaw  = hwMap.get(Servo.class, "left_hand");
