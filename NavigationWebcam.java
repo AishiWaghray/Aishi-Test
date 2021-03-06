@@ -84,7 +84,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.
 
 
 @TeleOp(name="ULTIMATEGOAL Vuforia Nav Webcam", group ="Concept")
-@Disabled
+//@Disabled
 public class NavigationWebcam extends LinearOpMode {
 
     /*
