@@ -1,4 +1,3 @@
-
  /* Copyright (c) 2017 FIRST. All rights reserved.
   *
   * Redistribution and use in source and binary forms, with or without modification,
@@ -131,8 +130,8 @@
              //Shooter start (wheels are moving reverse).
              if (gamepad1.dpad_down) {
 
-                 robot.ls.setPower(0.4); //value has to be positive for it to go the correct direction
-                 robot.rs.setPower(0.4);
+                 robot.ls.setPower(-0.2); //value has to be positive for it to go the correct direction
+                 robot.rs.setPower(-0.2);
              }
 
              //Shooter stop
@@ -143,6 +142,23 @@
                  robot.rs.setPower(0.0);
              }
 
+
+             //Intake Compliant Start
+
+             if (gamepad2.dpad_down) {
+
+                 robot.intake.setPower(1);
+                 robot.compliant.setPower(1);
+             }
+
+
+             //Intake Compliant Stop
+
+             if (gamepad2.dpad_up) {
+
+                 robot.intake.setPower(0.0);
+                 robot.compliant.setPower(0.0);
+             }
 
              //Forward
              if (RightBumper) {

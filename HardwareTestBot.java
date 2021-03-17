@@ -1,4 +1,3 @@
-
 /* Copyright (c) 2017 FIRST. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -31,6 +30,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -59,6 +59,8 @@ public class HardwareTestBot
     public DcMotor rightDriveBack  = null;
     public DcMotor ls  = null;
     public DcMotor rs = null;
+    public DcMotor intake = null;
+    public DcMotor compliant = null;
     public Servo arm = null;
     public Servo claw = null;
     //public DcMotor  leftArm     = null;
@@ -109,9 +111,16 @@ public class HardwareTestBot
         rs = hwMap.get(DcMotor.class, "rs");
         rs.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE if using AndyMark motors
 
+        //Intake/Compliant Motors
+        intake = hwMap.get(DcMotor.class, "intake");
+        intake.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE if using AndyMark motors
+
+        compliant = hwMap.get(DcMotor.class, "compliant");
+        compliant.setDirection(DcMotor.Direction.FORWARD);// Set to REVERSE if using AndyMark motors
 
 
         // Set all motors to zero power
+
         //wheels
         leftDriveFront.setPower(0);
         rightDriveFront.setPower(0);
@@ -121,6 +130,10 @@ public class HardwareTestBot
         //shooters
         ls.setPower(0);
         rs.setPower(0);
+
+        //intake/compliant
+        intake.setPower(0);
+        compliant.setPower(0);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
@@ -132,6 +145,11 @@ public class HardwareTestBot
         //shooter
         ls.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rs.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        //intake/compliant
+
+        intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        compliant.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Define and initialize ALL installed servos
 
