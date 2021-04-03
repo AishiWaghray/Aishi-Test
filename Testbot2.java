@@ -1,3 +1,4 @@
+
  /* Copyright (c) 2017 FIRST. All rights reserved.
   *
   * Redistribution and use in source and binary forms, with or without modification,
@@ -52,34 +53,27 @@
  public class Testbot2 extends LinearOpMode {
 
      /* Declare OpMode members. */
-     HardwareTestBot robot           = new HardwareTestBot();   // Use a Pushbot's hardware
+     HardwareTestBot robot           = new HardwareTestBot();
      double armPosition = robot.ARM_HOME; //servo safe position
      final double ARM_SPEED = 0.001 ; //sets rate to move servo
 
      double clawPosition = robot.CLAW_HOME; //servo safe position
      final double CLAW_SPEED = 0.001 ; //sets rate to move servo
+    //NOTE: According to my testing 0.001 is the slowest speed. 0.01 is quite fast.
 
-     //0.01 slowest...
-/*  double          armPosition      = 0.3;                       // Servo mid position
-    double          clawPosition      = 0;                       // Servo mid position
-    final double    ARM_SPEED      = 0.4 ;                  // sets rate to move servo
-    final double    CLAW_SPEED      = 0.8 ;                   // sets rate to move servo
-*/
      @Override
      public void runOpMode() {
          double left; //doubles are numbers. They will hold the speed/power for the motors.
          double right;
-       /* double drive;
-        double turn;
-        double max;
-*/
+
          /* Initialize the hardware variables.
           * The init() method of the hardware class does all the work here
           */
+
          robot.init(hardwareMap);
 
          // Send telemetry message to signify robot waiting;
-         telemetry.addData("Say", "Hello Driver");
+         telemetry.addData("Hello Driver", "INIT The Program");
          telemetry.update();
 
          // Wait for the game to start (driver presses PLAY)
@@ -95,73 +89,63 @@
              //Setting Variables for Gamepad1
              double RightStickY = gamepad1.right_stick_y;
              double LeftStickY = gamepad1.left_stick_y;
-             boolean RightBumper = gamepad1.right_bumper;
-             boolean LeftBumper = gamepad1.left_bumper;
-             boolean Dpadl = gamepad1.dpad_left;
-             boolean Dpadr = gamepad1.dpad_right;
-             robot.leftDriveFront.setPower(LeftStickY);
-             robot.leftDriveBack.setPower(LeftStickY);
-             robot.rightDriveFront.setPower(RightStickY);
-             robot.rightDriveBack.setPower(RightStickY);
+             float LeftTrigger = gamepad1.left_trigger;
+             float RightTrigger = gamepad1.right_trigger;
 
 
              //Arm Code
-             if (gamepad1.right_stick_button) // move attachment up
-                 armPosition += ARM_SPEED; //add to the servo position so it moves
-             else if (gamepad1.left_stick_button) //move attachment down
-                 armPosition -= ARM_SPEED; //subtract from the servo position so it moves the other direction
+             if (gamepad1.left_stick_button) //this moves the arm up
+                 armPosition += ARM_SPEED; //add to the servo position
 
-             //Move both servos to new position
+             else if (gamepad1.right_stick_button) //this moves the arm down
+                 armPosition -= ARM_SPEED; //subtract from the servo position
+
+             //The MIN and MAX range are being incorporated into the program here:
              armPosition = Range.clip(armPosition, robot.ARM_MIN_RANGE, robot.ARM_MAX_RANGE); //make sure the position is valid
              robot.arm.setPosition(armPosition); //this code here ACTUALLY sets the position of the servo so it moves
 
 
              //Claw Code
-             if (gamepad1.y) //open claw
-                 clawPosition += CLAW_SPEED; //add to the servo position so it moves
+             if (gamepad1.x) //this opens the claw
+                 clawPosition += CLAW_SPEED; //add to the servo position
 
-             else if (gamepad1.a) //close claw
-                 clawPosition -= CLAW_SPEED; //subtract from the servo position so it moves the other direction
+             else if (gamepad1.b) //this closes the claw
+                 clawPosition -= CLAW_SPEED; //subtract from the servo position
 
-             //Move both servos to new position
+             //The MIN and MAX range are being incorporated into the program here:
              clawPosition = Range.clip(clawPosition, robot.CLAW_MIN_RANGE, robot.CLAW_MAX_RANGE); //make sure the position is valid
              robot.claw.setPosition(clawPosition); //this code here ACTUALLY sets the position of the servo so it moves
 
-             //Shooter start (wheels are moving reverse).
-             if (gamepad1.dpad_down) {
+             //Shooter Wheels On
+             if (LeftTrigger) {
+                 robot.ls.setPower(0.3);
+                 robot.rs.setPower(0.3);
+             } //Since I set these wheels as REVERSE in the hwmap, these values must be positive so they can move in the REVERSE direction.
 
-                 robot.ls.setPower(-0.2); //value has to be positive for it to go the correct direction
-                 robot.rs.setPower(-0.2);
-             }
-
-             //Shooter stop
-
-             if (gamepad1.dpad_up) {
+             //Shooter Stop
+             if (RightTrigger) {
 
                  robot.ls.setPower(0.0);
                  robot.rs.setPower(0.0);
              }
 
-
              //Intake Compliant Start
+             if (gamepad1.y) {
 
-             if (gamepad2.dpad_down) {
-
-                 robot.intake.setPower(1);
-                 robot.compliant.setPower(1);
+                 robot.intake.setPower(0.3);
+                 robot.compliant.setPower(-0.4);
              }
-
 
              //Intake Compliant Stop
 
-             if (gamepad2.dpad_up) {
+             if (gamepad1.a) {
 
                  robot.intake.setPower(0.0);
                  robot.compliant.setPower(0.0);
              }
 
              //Forward
-             if (RightBumper) {
+             if (gamepad1.dpad_up) {
 
                  robot.leftDriveFront.setPower(0.8);
                  robot.leftDriveBack.setPower(-0.8);
@@ -170,7 +154,7 @@
 
              }
              //Backward
-             else if (LeftBumper) {
+             else if (gamepad1.dpad_down) {
                  robot.leftDriveFront.setPower(-0.8);
                  robot.leftDriveBack.setPower(0.8);
                  robot.rightDriveFront.setPower(0.8);
@@ -178,8 +162,8 @@
              }
 
              //Strafe Right
-             if (gamepad1.b) {
-
+             if (gamepad1.dpad_right) {
+                //NOTE: all values have to be negative for it to strafe to the right since the robot wheels are inversed, it is different for every robot
                  robot.leftDriveFront.setPower(-0.8);
                  robot.leftDriveBack.setPower(-0.8);
                  robot.rightDriveFront.setPower(-0.8);
@@ -187,7 +171,8 @@
 
              }
              //Strafe Left
-             if (gamepad1.x) {
+             if (gamepad1.dpad_left) {
+                 //NOTE: all values have to be positive for it to strafe to the left since the robot wheels are inversed, it is different for every robot
                  robot.leftDriveFront.setPower(0.8);
                  robot.leftDriveBack.setPower(0.8);
                  robot.rightDriveFront.setPower(0.8);
@@ -196,7 +181,7 @@
              }
 
              //Turn Right
-             if (Dpadr) {
+             if (gamepad1.right_bumper) {
 
                  robot.leftDriveFront.setPower(0.8);
                  robot.leftDriveBack.setPower(-0.8);
@@ -205,14 +190,14 @@
 
              }
              //Turn Left
-             if (Dpadl) {
+             if (gamepad1.left_bumper) {
                  robot.leftDriveFront.setPower(-0.8);
                  robot.leftDriveBack.setPower(0.8);
                  robot.rightDriveFront.setPower(-0.8);
                  robot.rightDriveBack.setPower(0.8);
              }
 
-         /* //Not in need of it right now. It is difficult to control two gamepads at once.
+        /*Don't need these as it is really hard to control two gamepads
          //Up Right Diagonal
             if (gamepad1.a) {
                 robot.leftDriveFront.setPower(0.8);
@@ -241,6 +226,7 @@
                 robot.rightDriveFront.setPower(-0.8);
                 robot.rightDriveBack.setPower(0.0);
             } */
+
              //Turns slightly to left or right
              else {
                  robot.leftDriveFront.setPower(LeftStickY);
