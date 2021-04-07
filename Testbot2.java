@@ -94,16 +94,16 @@
 
 
              //Arm Code
-             if (gamepad1.left_stick_button) //this moves the arm up
+        /*     if (gamepad1.right_trigger) //this moves the arm up
                  armPosition += ARM_SPEED; //add to the servo position
 
-             else if (gamepad1.right_stick_button) //this moves the arm down
+             else if (gamepad1.left_trigger) //this moves the arm down
                  armPosition -= ARM_SPEED; //subtract from the servo position
 
              //The MIN and MAX range are being incorporated into the program here:
              armPosition = Range.clip(armPosition, robot.ARM_MIN_RANGE, robot.ARM_MAX_RANGE); //make sure the position is valid
              robot.arm.setPosition(armPosition); //this code here ACTUALLY sets the position of the servo so it moves
-
+*/
 
              //Claw Code
              if (gamepad1.x) //this opens the claw
@@ -117,13 +117,13 @@
              robot.claw.setPosition(clawPosition); //this code here ACTUALLY sets the position of the servo so it moves
 
              //Shooter Wheels On
-             if (LeftTrigger) {
+             if (gamepad1.left_stick_button) {
                  robot.ls.setPower(0.3);
                  robot.rs.setPower(0.3);
              } //Since I set these wheels as REVERSE in the hwmap, these values must be positive so they can move in the REVERSE direction.
 
              //Shooter Stop
-             if (RightTrigger) {
+             if (gamepad1.right_stick_button) {
 
                  robot.ls.setPower(0.0);
                  robot.rs.setPower(0.0);
