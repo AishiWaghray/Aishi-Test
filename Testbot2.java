@@ -118,24 +118,23 @@
 
              //Shooter Wheels On
              if (gamepad1.left_stick_button) {
-                 robot.ls.setPower(0.3);
-                 robot.rs.setPower(0.3);
+                 robot.s1.setPower(0.3);
+                 robot.s2.setPower(-0.3);
              } //Since I set these wheels as REVERSE in the hwmap, these values must be positive so they can move in the REVERSE direction.
 
              //Shooter Stop
              if (gamepad1.right_stick_button) {
 
-                 robot.ls.setPower(0.0);
-                 robot.rs.setPower(0.0);
+                 robot.s1.setPower(0.0);
+                 robot.s2.setPower(0.0);
              }
 
              //Intake Compliant Start
              if (gamepad1.y) {
 
-                 robot.intake.setPower(0.3);
+                 robot.intake.setPower(0.5);
                  robot.compliant.setPower(-0.4);
              }
-
              //Intake Compliant Stop
 
              if (gamepad1.a) {

@@ -58,8 +58,8 @@ public class HardwareTestBot
     public DcMotor rightDriveFront  = null;
     public DcMotor leftDriveBack   = null;
     public DcMotor rightDriveBack  = null;
-    public DcMotor ls  = null; //left shooter wheel
-    public DcMotor rs = null; //right shooter wheel
+    public DcMotor s1  = null; //shooter 1 wheel
+    public DcMotor s2 = null; //shooter 2 wheel
     public DcMotor intake = null; //set of two wheels in the front
     public DcMotor compliant = null; //set of three wheels behind the intake
     public Servo arm = null;
@@ -105,11 +105,11 @@ public class HardwareTestBot
         leftDriveBack.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE
 
         //Shooter Motors
-        ls = hwMap.get(DcMotor.class, "ls");
-        ls.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE
+        s1 = hwMap.get(DcMotor.class, "s1");
+        s1.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE
 
-        rs = hwMap.get(DcMotor.class, "rs");
-        rs.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE
+        s2 = hwMap.get(DcMotor.class, "s2");
+        s2.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE
 
         //Intake/Compliant Motors
         intake = hwMap.get(DcMotor.class, "intake");
@@ -128,8 +128,8 @@ public class HardwareTestBot
         rightDriveBack.setPower(0);
 
         //Shooter Wheels
-        ls.setPower(0); //ls stands for Left Shooter
-        rs.setPower(0); //rs stands for Right Shooter
+        s1.setPower(0);
+        s2.setPower(0);
 
         //Intake/Compliant Wheels
         intake.setPower(0);
@@ -143,8 +143,8 @@ public class HardwareTestBot
         rightDriveBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //Shooter Wheels
-        ls.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); //ls stands for Left Shooter
-        rs.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); //rs stands for Right Shooter
+        s1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        s2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         //Intake/Compliant Wheels
         intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
