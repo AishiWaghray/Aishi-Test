@@ -118,9 +118,10 @@
 
              //Shooter Wheels On
              if (gamepad1.left_stick_button) {
-                 robot.s1.setPower(0.3);
-                 robot.s2.setPower(-0.3);
-             } //Since I set these wheels as REVERSE in the hwmap, these values must be positive so they can move in the REVERSE direction.
+                 robot.s1.setPower(-0.3);
+                 robot.s2.setPower(0.3);
+             } //s1 negative
+             //s2 positive
 
              //Shooter Stop
              if (gamepad1.right_stick_button) {
