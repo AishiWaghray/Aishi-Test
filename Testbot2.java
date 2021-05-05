@@ -117,14 +117,14 @@
              robot.claw.setPosition(clawPosition); //this code here ACTUALLY sets the position of the servo so it moves
 
              //Shooter Wheels On
-             if (gamepad1.left_stick_button) {
-                 robot.s1.setPower(-0.6);
-                 robot.s2.setPower(0.6);
+             if (gamepad1.left_bumper) {
+                 robot.s1.setPower(-0.7);
+                 robot.s2.setPower(0.7);
              } //s1 negative
              //s2 positive
 
              //Shooter Stop
-             if (gamepad1.right_stick_button) {
+             if (gamepad1.right_bumper) {
 
                  robot.s1.setPower(0.0);
                  robot.s2.setPower(0.0);
@@ -134,7 +134,7 @@
              if (gamepad1.y) {
 
                  robot.intake.setPower(0.5);
-                 robot.compliant.setPower(-0.4);
+                 robot.compliant.setPower(-0.5);
              }
              //Intake Compliant Stop
 
@@ -146,55 +146,39 @@
 
              //Forward
              if (gamepad1.dpad_up) {
-
+                //All values positive
                  robot.leftDriveFront.setPower(0.8);
-                 robot.leftDriveBack.setPower(-0.8);
-                 robot.rightDriveFront.setPower(-0.8);
+                 robot.leftDriveBack.setPower(0.8);
+                 robot.rightDriveFront.setPower(0.8);
                  robot.rightDriveBack.setPower(0.8);
 
              }
              //Backward
              else if (gamepad1.dpad_down) {
+                 //All values negative
                  robot.leftDriveFront.setPower(-0.8);
-                 robot.leftDriveBack.setPower(0.8);
-                 robot.rightDriveFront.setPower(0.8);
+                 robot.leftDriveBack.setPower(-0.8);
+                 robot.rightDriveFront.setPower(-0.8);
                  robot.rightDriveBack.setPower(-0.8);
+
              }
 
              //Strafe Right
              if (gamepad1.dpad_right) {
-                //NOTE: all values have to be negative for it to strafe to the right since the robot wheels are inversed, it is different for every robot
-                 robot.leftDriveFront.setPower(-0.8);
+                 robot.leftDriveFront.setPower(0.8);
                  robot.leftDriveBack.setPower(-0.8);
                  robot.rightDriveFront.setPower(-0.8);
-                 robot.rightDriveBack.setPower(-0.8);
+                 robot.rightDriveBack.setPower(0.8);
+
 
              }
              //Strafe Left
              if (gamepad1.dpad_left) {
-                 //NOTE: all values have to be positive for it to strafe to the left since the robot wheels are inversed, it is different for every robot
-                 robot.leftDriveFront.setPower(0.8);
+                 robot.leftDriveFront.setPower(-0.8);
                  robot.leftDriveBack.setPower(0.8);
-                 robot.rightDriveFront.setPower(0.8);
-                 robot.rightDriveBack.setPower(0.8);
-
-             }
-
-             //Turn Right
-             if (gamepad1.right_bumper) {
-
-                 robot.leftDriveFront.setPower(0.8);
-                 robot.leftDriveBack.setPower(-0.8);
                  robot.rightDriveFront.setPower(0.8);
                  robot.rightDriveBack.setPower(-0.8);
 
-             }
-             //Turn Left
-             if (gamepad1.left_bumper) {
-                 robot.leftDriveFront.setPower(-0.8);
-                 robot.leftDriveBack.setPower(0.8);
-                 robot.rightDriveFront.setPower(-0.8);
-                 robot.rightDriveBack.setPower(0.8);
              }
 
         /*Don't need these as it is really hard to control two gamepads
