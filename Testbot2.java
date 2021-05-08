@@ -118,8 +118,8 @@
 
              //Shooter Wheels On
              if (gamepad1.left_bumper) {
-                 robot.s1.setPower(-0.7);
-                 robot.s2.setPower(0.7);
+                 robot.s1.setPower(-1);
+                 robot.s2.setPower(1);
              } //s1 negative
              //s2 positive
 
