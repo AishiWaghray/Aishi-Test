@@ -1,4 +1,3 @@
-
  /* Copyright (c) 2017 FIRST. All rights reserved.
   *
   * Redistribution and use in source and binary forms, with or without modification,
@@ -59,7 +58,7 @@
 
      double clawPosition = robot.CLAW_HOME; //servo safe position
      final double CLAW_SPEED = 0.001 ; //sets rate to move servo
-    //NOTE: According to my testing 0.001 is the slowest speed. 0.01 is quite fast.
+     //NOTE: According to my testing 0.001 is the slowest speed. 0.01 is quite fast.
 
      @Override
      public void runOpMode() {
@@ -96,10 +95,8 @@
              //Arm Code
         /*     if (gamepad1.right_trigger) //this moves the arm up
                  armPosition += ARM_SPEED; //add to the servo position
-
              else if (gamepad1.left_trigger) //this moves the arm down
                  armPosition -= ARM_SPEED; //subtract from the servo position
-
              //The MIN and MAX range are being incorporated into the program here:
              armPosition = Range.clip(armPosition, robot.ARM_MIN_RANGE, robot.ARM_MAX_RANGE); //make sure the position is valid
              robot.arm.setPosition(armPosition); //this code here ACTUALLY sets the position of the servo so it moves
@@ -134,7 +131,7 @@
              if (gamepad1.y) {
 
                  robot.intake.setPower(0.5);
-                 robot.compliant.setPower(-0.5);
+                 robot.compliant.setPower(0.5);
              }
              //Intake Compliant Stop
 
@@ -146,7 +143,7 @@
 
              //Forward
              if (gamepad1.dpad_up) {
-                //All values positive
+                 //All values positive
                  robot.leftDriveFront.setPower(0.8);
                  robot.leftDriveBack.setPower(0.8);
                  robot.rightDriveFront.setPower(0.8);

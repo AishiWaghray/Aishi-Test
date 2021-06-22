@@ -48,8 +48,8 @@ public class EncoderAuto extends LinearOpMode {
 
         //set the power desired for the motors
         robot.leftDriveFront.setPower(0.1);
-        robot.leftDriveBack.setPower(-0.1);
-        robot.rightDriveFront.setPower(-0.1);
+        robot.leftDriveBack.setPower(0.1);
+        robot.rightDriveFront.setPower(0.1);
         robot.rightDriveBack.setPower(0.1);
 
         //set the motors to RUN_TO_POSITION
