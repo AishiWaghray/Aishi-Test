@@ -32,6 +32,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -88,6 +89,17 @@ public class Competition_Auto extends LinearOpMode {
         initVuforia();
         initTfod();
 
+        //setting the motors
+        DcMotor leftDriveFront = null;
+        DcMotor leftDriveBack = null;
+        DcMotor rightDriveFront = null;
+        DcMotor rightDriveBack = null;
+
+        leftDriveFront = hardwareMap.dcMotor.get("ldf");
+        leftDriveBack = hardwareMap.dcMotor.get("ldb");
+        rightDriveFront = hardwareMap.dcMotor.get("rdf");
+        rightDriveBack = hardwareMap.dcMotor.get("rdb");
+
         /**
          * Activate TensorFlow Object Detection before we wait for the start command.
          * Do it here so that the Camera Stream window will have the TensorFlow annotations visible.
@@ -105,7 +117,7 @@ public class Competition_Auto extends LinearOpMode {
         }
 
         /** Wait for the game to begin */
-        telemetry.addData(">", "Press Play to start op mode");
+        telemetry.addData(">", "Scanning Done. Begin the program.");
         telemetry.update();
         waitForStart();
 
@@ -120,8 +132,17 @@ public class Competition_Auto extends LinearOpMode {
                         if (updatedRecognitions.size() == 0 ) {
                             // empty list.  no objects recognized.
                             telemetry.addData("TFOD", "No items detected.");
-                            telemetry.addData("Target Zone", "A");
+                            telemetry.addData("Driving to Target Zone", "A");
                             targetZone = 1;
+
+                            //driving forward to Target Zone A, stopping at launch line
+                            leftDriveFront.setPower(0.3);
+                            leftDriveBack.setPower(0.3);
+                            rightDriveFront.setPower(0.3);
+                            rightDriveBack.setPower (0.3);
+                            sleep (15000); //sleeping for 15 seconds
+
+
                         } else {
                             // list is not empty.
                             // step through the list of recognitions and display boundary info.
@@ -135,11 +156,56 @@ public class Competition_Auto extends LinearOpMode {
 
                                 // check label to see which target zone to go after.
                                 if (recognition.getLabel().equals("Single")) {
-                                    telemetry.addData("Target Zone", "B");
+                                    telemetry.addData("Driving to Target Zone", "B");
                                     targetZone = 2;
+                                    //strafing to the right one mat
+                                    leftDriveFront.setPower(0.1);
+                                    leftDriveBack.setPower(-0.1);
+                                    rightDriveFront.setPower(-0.1);
+                                    rightDriveBack.setPower (0.1);
+                                    sleep (1000);
+
+                                    //moving forward to target zone B
+                                    leftDriveFront.setPower(0.45);
+                                    leftDriveBack.setPower(0.45);
+                                    rightDriveFront.setPower(0.45);
+                                    rightDriveBack.setPower (0.45);
+                                    sleep (1000);
+
+                                    //moving back to the launch line
+                                    leftDriveFront.setPower(-0.15);
+                                    leftDriveBack.setPower(-0.15);
+                                    rightDriveFront.setPower(-0.15);
+                                    rightDriveBack.setPower(-0.15);
+                                    sleep (15000); //sleeping for 15 seconds
+
+
+
                                 } else if (recognition.getLabel().equals("Quad")) {
-                                    telemetry.addData("Target Zone", "C");
+                                    telemetry.addData("Driving to Target Zone", "C");
                                     targetZone = 3;
+                                    //strafing to the right one mat
+                                    leftDriveFront.setPower(0.1);
+                                    leftDriveBack.setPower(-0.1);
+                                    rightDriveFront.setPower(-0.1);
+                                    rightDriveBack.setPower (0.1);
+                                    sleep (1000);
+
+                                    //moving forward to target zone C
+                                    leftDriveFront.setPower(0.6);
+                                    leftDriveBack.setPower(0.6);
+                                    rightDriveFront.setPower(0.6);
+                                    rightDriveBack.setPower (0.6);
+                                    sleep (1000);
+
+                                    //moving back to the launch line
+                                    leftDriveFront.setPower(-0.3);
+                                    leftDriveBack.setPower(-0.3);
+                                    rightDriveFront.setPower(-0.3);
+                                    rightDriveBack.setPower(-0.3);
+                                    sleep (15000); //sleeping for 15 seconds
+
+
                                 } else {
                                     telemetry.addData("Target Zone", "UNKNOWN");
                                 }
@@ -156,7 +222,7 @@ public class Competition_Auto extends LinearOpMode {
 
                 //stopping the while loop from running indefinitely
                 if (cameraNumber == 100000) {
-                    //the reason there are two equals is since one equals sign means you are
+                    //the reason there are two equals is since one equal sign means you are
                     //setting the variable to something while two equal signs signifies that you're asking
                     //if it is set to something
 
