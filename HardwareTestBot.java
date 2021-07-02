@@ -59,18 +59,11 @@ public class HardwareTestBot
     public DcMotor leftDriveBack   = null;
     public DcMotor rightDriveBack  = null;
     public DcMotor s1  = null; //shooter 1 wheel
-    public DcMotor s2 = null; //shooter 2 wheel
+    public DcMotor gripper = null; //gripper
     public DcMotor intake = null; //set of two wheels in the front
     public DcMotor compliant = null; //set of three wheels behind the intake
-    public Servo arm = null;
     public Servo claw = null;
 
-    public final static double ARM_HOME = 0.96; //starting position for servo arm
-    //JUST IN CASE IF CODE GETS MESSED UP: Value must be 0.96
-    public final static double ARM_MIN_RANGE = 0.0; //smallest number value allowed for servo position
-    //JUST IN CASE IF CODE GETS MESSED UP: Value must be 0.0
-    public final static double ARM_MAX_RANGE = 5.0; // largest number value allowed for servo position
-    //JUST IN CASE IF CODE GETS MESSED UP: Value must be 5.0
 
     public final static double CLAW_HOME = 0.0; //starting position for servo arm
     //JUST IN CASE IF CODE GETS MESSED UP: Value must be 0.0
@@ -108,9 +101,10 @@ public class HardwareTestBot
         s1 = hwMap.get(DcMotor.class, "s1");
         s1.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE
 
-        s2 = hwMap.get(DcMotor.class, "s2");
-        s2.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE
 
+        //Gripper
+        gripper = hwMap.get(DcMotor.class, "gripper");
+        gripper.setDirection(DcMotor.Direction.FORWARD);// Set to REVERSE
         //Intake/Compliant Motors
         intake = hwMap.get(DcMotor.class, "intake");
         intake.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE
@@ -129,11 +123,13 @@ public class HardwareTestBot
 
         //Shooter Wheels
         s1.setPower(0);
-        s2.setPower(0);
 
         //Intake/Compliant Wheels
         intake.setPower(0);
         compliant.setPower(0);
+
+        //Gripper
+        gripper.setPower(0);
 
         //Use RUN_USING_ENCODERS if encoders are installed.
         //Use RUN_WITHOUT_ENCODER if encoders aren't installed.
@@ -144,11 +140,13 @@ public class HardwareTestBot
 
         //Shooter Wheels
         s1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        s2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         //Intake/Compliant Wheels
         intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         compliant.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        //Gripper
+        gripper.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         //Define and initialize ALL installed servos
 
@@ -156,11 +154,5 @@ public class HardwareTestBot
         claw = hwMap.servo.get("claw"); //set equal to name of the servo motor in the phone
         claw.setPosition(CLAW_HOME); //setPosition actually sets the servo's position and moves it
         //NOTE: make sure that it says CLAW_HOME otherwise it will mess up the program
-
-        //Arm
-        arm = hwMap.servo.get("arm"); //set equal to name of the servo motor in the phone
-        arm.setPosition(ARM_HOME); //setPosition actually sets the servo's position and moves it
-        //NOTE: make sure that it says ARM_HOME otherwise it will mess up the program
-
     }
 }

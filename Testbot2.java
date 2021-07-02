@@ -52,12 +52,9 @@
  public class Testbot2 extends LinearOpMode {
 
      /* Declare OpMode members. */
-     HardwareTestBot robot           = new HardwareTestBot();
-     double armPosition = robot.ARM_HOME; //servo safe position
-     final double ARM_SPEED = 0.001 ; //sets rate to move servo
-
+     HardwareTestBot robot = new HardwareTestBot();
      double clawPosition = robot.CLAW_HOME; //servo safe position
-     final double CLAW_SPEED = 0.001 ; //sets rate to move servo
+     final double CLAW_SPEED = 0.001; //sets rate to move servo
      //NOTE: According to my testing 0.001 is the slowest speed. 0.01 is quite fast.
 
      @Override
@@ -113,70 +110,76 @@
              clawPosition = Range.clip(clawPosition, robot.CLAW_MIN_RANGE, robot.CLAW_MAX_RANGE); //make sure the position is valid
              robot.claw.setPosition(clawPosition); //this code here ACTUALLY sets the position of the servo so it moves
 
-             //Shooter Wheels On
-             if (gamepad1.left_bumper) {
-                 robot.s1.setPower(-1);
-                 robot.s2.setPower(1);
-             } //s1 negative
-             //s2 positive
-
-             //Shooter Stop
-             if (gamepad1.right_bumper) {
-
+             //Gripper Start
+             if (gamepad1.left_stick_button) {
+                 robot.gripper.setPower(-0.1);
+             }
+             //Gripper Stop
+             if (gamepad1.right_stick_button) {
                  robot.s1.setPower(0.0);
-                 robot.s2.setPower(0.0);
-             }
 
-             //Intake Compliant Start
-             if (gamepad1.y) {
-
-                 robot.intake.setPower(0.5);
-                 robot.compliant.setPower(0.5);
-             }
-             //Intake Compliant Stop
-
-             if (gamepad1.a) {
-
-                 robot.intake.setPower(0.0);
-                 robot.compliant.setPower(0.0);
-             }
-
-             //Forward
-             if (gamepad1.dpad_up) {
-                 //All values positive
-                 robot.leftDriveFront.setPower(0.8);
-                 robot.leftDriveBack.setPower(0.8);
-                 robot.rightDriveFront.setPower(0.8);
-                 robot.rightDriveBack.setPower(0.8);
-
-             }
-             //Backward
-             else if (gamepad1.dpad_down) {
-                 //All values negative
-                 robot.leftDriveFront.setPower(-0.8);
-                 robot.leftDriveBack.setPower(-0.8);
-                 robot.rightDriveFront.setPower(-0.8);
-                 robot.rightDriveBack.setPower(-0.8);
-
-             }
-
-             //Strafe Right
-             if (gamepad1.dpad_right) {
-                 robot.leftDriveFront.setPower(0.8);
-                 robot.leftDriveBack.setPower(-0.8);
-                 robot.rightDriveFront.setPower(-0.8);
-                 robot.rightDriveBack.setPower(0.8);
+                 //Shooter Wheels On
+                 if (gamepad1.left_bumper) {
+                     robot.s1.setPower(-1);
+                 } //s1 negative
 
 
-             }
-             //Strafe Left
-             if (gamepad1.dpad_left) {
-                 robot.leftDriveFront.setPower(-0.8);
-                 robot.leftDriveBack.setPower(0.8);
-                 robot.rightDriveFront.setPower(0.8);
-                 robot.rightDriveBack.setPower(-0.8);
+                 //Shooter Stop
+                 if (gamepad1.right_bumper) {
 
-             }
+                     robot.s1.setPower(0.0);
+                 }
+
+                 //Intake Compliant Start
+                 if (gamepad1.y) {
+
+                     robot.intake.setPower(0.5);
+                     robot.compliant.setPower(0.5);
+                 }
+                 //Intake Compliant Stop
+
+                 if (gamepad1.a) {
+
+                     robot.intake.setPower(0.0);
+                     robot.compliant.setPower(0.0);
+                 }
+
+                 //Forward
+                 if (gamepad1.dpad_up) {
+                     //All values positive
+                     robot.leftDriveFront.setPower(0.8);
+                     robot.leftDriveBack.setPower(0.8);
+                     robot.rightDriveFront.setPower(0.8);
+                     robot.rightDriveBack.setPower(0.8);
+
+                 }
+                 //Backward
+                 else if (gamepad1.dpad_down) {
+                     //All values negative
+                     robot.leftDriveFront.setPower(-0.8);
+                     robot.leftDriveBack.setPower(-0.8);
+                     robot.rightDriveFront.setPower(-0.8);
+                     robot.rightDriveBack.setPower(-0.8);
+
+                 }
+
+                 //Strafe Right
+                 if (gamepad1.dpad_right) {
+                     robot.leftDriveFront.setPower(0.8);
+                     robot.leftDriveBack.setPower(-0.8);
+                     robot.rightDriveFront.setPower(-0.8);
+                     robot.rightDriveBack.setPower(0.8);
+
+
+                 }
+                 //Strafe Left
+                 if (gamepad1.dpad_left) {
+                     robot.leftDriveFront.setPower(-0.8);
+                     robot.leftDriveBack.setPower(0.8);
+                     robot.rightDriveFront.setPower(0.8);
+                     robot.rightDriveBack.setPower(-0.8);
+
+                 }
 
         /*Don't need these as it is really hard to control two gamepads
          //Up Right Diagonal
@@ -208,23 +211,24 @@
                 robot.rightDriveBack.setPower(0.0);
             } */
 
-             //Turns slightly to left or right
-             else {
-                 robot.leftDriveFront.setPower(LeftStickY);
-                 robot.leftDriveBack.setPower(LeftStickY);
-                 robot.rightDriveFront.setPower(RightStickY);
-                 robot.rightDriveBack.setPower(RightStickY);
+                 //Turns slightly to left or right
+                 else {
+                     robot.leftDriveFront.setPower(LeftStickY);
+                     robot.leftDriveBack.setPower(LeftStickY);
+                     robot.rightDriveFront.setPower(RightStickY);
+                     robot.rightDriveBack.setPower(RightStickY);
 
+                 }
+                 //Send telemetry message to signify robot running;
+                 telemetry.addData("claw", "%.2f", clawPosition);
+                 // VERY IMPORTANT CODE, shows the values on the phone of the servo
+                 //telemetry.addData("left", "%.2f", left);
+                 //telemetry.addData("right", "%.2f", right);
+                 telemetry.update();
+
+                 // Pace this loop so jaw action is reasonable speed.
              }
-             //Send telemetry message to signify robot running;
-             telemetry.addData("arm", "%.2f", armPosition);
-             telemetry.addData("claw", "%.2f", clawPosition);
-             // VERY IMPORTANT CODE, shows the values on the phone of the servo
-             //telemetry.addData("left", "%.2f", left);
-             //telemetry.addData("right", "%.2f", right);
-             telemetry.update();
-
-             // Pace this loop so jaw action is reasonable speed.
-         }        sleep(50);
+             sleep(50);
+         }
      }
  }

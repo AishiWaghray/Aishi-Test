@@ -84,7 +84,7 @@ public class TestBotSimpleAuto extends LinearOpMode {
         //Drive the Robot forward
         robot.leftDriveFront.setPower(1);
         robot.leftDriveBack.setPower(-1);
-        robot.rightDriveFront.setPower(-1);
+        robot.rightDriveFront.setPower(1);
         robot.rightDriveBack.setPower(1);
         sleep(1100); //stay here in the code for 1 second, don't move on to the next instructions
 
