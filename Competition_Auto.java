@@ -94,11 +94,18 @@ public class Competition_Auto extends LinearOpMode {
         DcMotor leftDriveBack = null;
         DcMotor rightDriveFront = null;
         DcMotor rightDriveBack = null;
+        DcMotor s1 = null;
+        DcMotor compliant = null;
+        DcMotor intake = null;
 
         leftDriveFront = hardwareMap.dcMotor.get("ldf");
         leftDriveBack = hardwareMap.dcMotor.get("ldb");
         rightDriveFront = hardwareMap.dcMotor.get("rdf");
         rightDriveBack = hardwareMap.dcMotor.get("rdb");
+        s1 = hardwareMap.dcMotor.get("s1");
+        compliant = hardwareMap.dcMotor.get("compliant");
+        intake = hardwareMap.dcMotor.get("intake");
+
 
         /**
          * Activate TensorFlow Object Detection before we wait for the start command.
@@ -133,6 +140,7 @@ public class Competition_Auto extends LinearOpMode {
                             // empty list.  no objects recognized.
                             telemetry.addData("TFOD", "No items detected.");
                             telemetry.addData("Driving to Target Zone", "A");
+                            telemetry.update();
                             targetZone = 1;
 
                             //driving forward
@@ -143,24 +151,23 @@ public class Competition_Auto extends LinearOpMode {
                             sleep (1000);
 
                             //strafing left
-                            leftDriveFront.setPower(-0.55);
-                            leftDriveBack.setPower(-0.55);
-                            rightDriveFront.setPower(0.55);
-                            rightDriveBack.setPower (-0.55);
+                            leftDriveFront.setPower(-0.5);
+                            leftDriveBack.setPower(-0.5);
+                            rightDriveFront.setPower(0.5);
+                            rightDriveBack.setPower (-0.5);
                             sleep(1000);
-
-                            //driving forward
-                            leftDriveFront.setPower(0.55);
-                            leftDriveBack.setPower(-0.55);
-                            rightDriveFront.setPower(0.55);
-                            rightDriveBack.setPower (0.55);
-                            sleep (1000);
 
                             //driving forward
                             leftDriveFront.setPower(0.5);
                             leftDriveBack.setPower(-0.5);
                             rightDriveFront.setPower(0.5);
                             rightDriveBack.setPower (0.5);
+                            sleep (1000);
+
+                            leftDriveFront.setPower(0.55);
+                            leftDriveBack.setPower(-0.55);
+                            rightDriveFront.setPower(0.55);
+                            rightDriveBack.setPower (0.55);
                             sleep (1000);
 
                             //stop
@@ -184,10 +191,61 @@ public class Competition_Auto extends LinearOpMode {
                                 // check label to see which target zone to go after.
                                 if (recognition.getLabel().equals("Single")) {
                                     telemetry.addData("Driving to Target Zone", "B");
+                                    telemetry.update();
                                     targetZone = 2;
+
+                                    //driving forward
+                                    leftDriveFront.setPower(0.65);
+                                    leftDriveBack.setPower(-0.65);
+                                    rightDriveFront.setPower(0.65);
+                                    rightDriveBack.setPower (0.65);
+                                    sleep (1000);
+
+                                    //strafing right
+                                    leftDriveFront.setPower(0.5);
+                                    leftDriveBack.setPower(0.5);
+                                    rightDriveFront.setPower(-0.5);
+                                    rightDriveBack.setPower (0.5);
+                                    sleep (1000);
+
+                                    //driving forward
+                                    leftDriveFront.setPower(0.45);
+                                    leftDriveBack.setPower(-0.45);
+                                    rightDriveFront.setPower(0.45);
+                                    rightDriveBack.setPower (0.45);
+                                    sleep (1000);
+
+                                    //driving forward
+                                    leftDriveFront.setPower(0.45);
+                                    leftDriveBack.setPower(-0.45);
+                                    rightDriveFront.setPower(0.45);
+                                    rightDriveBack.setPower (0.45);
+                                    sleep (1000);
+
+                                    //forward
+                                    leftDriveFront.setPower(0.45);
+                                    leftDriveBack.setPower(-0.45);
+                                    rightDriveFront.setPower(0.45);
+                                    rightDriveBack.setPower (0.45);
+                                    sleep (1000);
+
+                                    //backward
+                                    leftDriveFront.setPower(-0.45);
+                                    leftDriveBack.setPower(0.45);
+                                    rightDriveFront.setPower(-0.45);
+                                    rightDriveBack.setPower (-0.45);
+                                    sleep (1000);
+
+                                    //stop
+                                    leftDriveFront.setPower(0);
+                                    leftDriveBack.setPower(0);
+                                    rightDriveFront.setPower(0);
+                                    rightDriveBack.setPower (0);
+                                    sleep(1000000000);
 
                                 } else if (recognition.getLabel().equals("Quad")) {
                                     telemetry.addData("Driving to Target Zone", "C");
+                                    telemetry.update();
                                     targetZone = 3;
 
                                     //driving forward
@@ -198,103 +256,50 @@ public class Competition_Auto extends LinearOpMode {
                                     sleep (1000);
 
                                     //strafing left
-                                    leftDriveFront.setPower(-0.55);
-                                    leftDriveBack.setPower(-0.55);
-                                    rightDriveFront.setPower(0.55);
-                                    rightDriveBack.setPower (-0.55);
-                                    sleep(1000);
-
-                                    //driving forward
-                                    leftDriveFront.setPower(0.55);
-                                    leftDriveBack.setPower(-0.55);
-                                    rightDriveFront.setPower(0.55);
-                                    rightDriveBack.setPower (0.55);
-                                    sleep (1000);
-
-                                    //driving forward
-                                    leftDriveFront.setPower(0.55);
-                                    leftDriveBack.setPower(-0.55);
-                                    rightDriveFront.setPower(0.55);
-                                    rightDriveBack.setPower (0.55);
-                                    sleep (1000);
-
-                                    //driving forward
-                                    leftDriveFront.setPower(0.55);
-                                    leftDriveBack.setPower(-0.55);
-                                    rightDriveFront.setPower(0.55);
-                                    rightDriveBack.setPower (0.55);
-                                    sleep (1000);
-
-                                    //driving forward
-                                    leftDriveFront.setPower(0.5);
-                                    leftDriveBack.setPower(-0.5);
-                                    rightDriveFront.setPower(0.5);
-                                    rightDriveBack.setPower (0.5);
-                                    sleep (1000);
-
-                                    //driving forward
-                                    leftDriveFront.setPower(0.5);
-                                    leftDriveBack.setPower(-0.5);
-                                    rightDriveFront.setPower(0.5);
-                                    rightDriveBack.setPower (0.5);
-                                    sleep (1000);
-
-                                    //strafing left
-                                    leftDriveFront.setPower(-0.55);
-                                    leftDriveBack.setPower(-0.55);
-                                    rightDriveFront.setPower(0.55);
-                                    rightDriveBack.setPower (-0.55);
-                                    sleep(1000);
-
-                                    //driving forward
-                                    leftDriveFront.setPower(0.55);
-                                    leftDriveBack.setPower(-0.55);
-                                    rightDriveFront.setPower(0.55);
-                                    rightDriveBack.setPower (0.55);
-                                    sleep (1000);
-
-                                    //driving forward
-                                    leftDriveFront.setPower(0.5);
-                                    leftDriveBack.setPower(-0.5);
-                                    rightDriveFront.setPower(0.5);
-                                    rightDriveBack.setPower (0.5);
-                                    sleep (1000);
-
-                                    //driving forward
-                                    leftDriveFront.setPower(0.5);
-                                    leftDriveBack.setPower(-0.5);
-                                    rightDriveFront.setPower(0.5);
-                                    rightDriveBack.setPower (0.5);
-                                    sleep (1000);
-
-                                    //driving forward
-                                    leftDriveFront.setPower(0.5);
-                                    leftDriveBack.setPower(-0.5);
-                                    rightDriveFront.setPower(0.5);
-                                    rightDriveBack.setPower (0.5);
-                                    sleep (1000);
-
-                                    //driving backward
                                     leftDriveFront.setPower(-0.5);
-                                    leftDriveBack.setPower(0.5);
-                                    rightDriveFront.setPower(-0.5);
+                                    leftDriveBack.setPower(-0.5);
+                                    rightDriveFront.setPower(0.5);
                                     rightDriveBack.setPower (-0.5);
+                                    sleep(1000);
+
+                                    //driving forward
+                                    leftDriveFront.setPower(0.5);
+                                    leftDriveBack.setPower(-0.5);
+                                    rightDriveFront.setPower(0.5);
+                                    rightDriveBack.setPower (0.5);
                                     sleep (1000);
 
-                                    //stop
-                                    leftDriveFront.setPower(0);
-                                    leftDriveBack.setPower(0);
-                                    rightDriveFront.setPower(0);
-                                    rightDriveBack.setPower (0);
-                                    sleep(1000000000);
-                                    sleep (15000); //sleeping for 15 seconds
-
-                                    //driving backward
-                                    leftDriveFront.setPower(-0.6);
-                                    leftDriveBack.setPower(0.6);
-                                    rightDriveFront.setPower(-0.6);
-                                    rightDriveBack.setPower (-0.6);
+                                    leftDriveFront.setPower(0.55);
+                                    leftDriveBack.setPower(-0.55);
+                                    rightDriveFront.setPower(0.55);
+                                    rightDriveBack.setPower (0.55);
                                     sleep (1000);
+
+                                    leftDriveFront.setPower(0.55);
+                                    leftDriveBack.setPower(-0.55);
+                                    rightDriveFront.setPower(0.55);
+                                    rightDriveBack.setPower (0.55);
+                                    sleep (1000);
+
+                                    leftDriveFront.setPower(0.55);
+                                    leftDriveBack.setPower(-0.55);
+                                    rightDriveFront.setPower(0.55);
+                                    rightDriveBack.setPower (0.55);
+                                    sleep (1000);
+
+                                    //driving backwards
+                                    leftDriveFront.setPower(-0.55);
+                                    leftDriveBack.setPower(0.55);
+                                    rightDriveFront.setPower(-0.55);
+                                    rightDriveBack.setPower (-0.55);
+                                    sleep (1000);
+
+                                    leftDriveFront.setPower(-0.3);
+                                    leftDriveBack.setPower(0.3);
+                                    rightDriveFront.setPower(-0.3);
+                                    rightDriveBack.setPower (-0.3);
+                                    sleep (1000);
+
 
                                     //stop
                                     leftDriveFront.setPower(0);
